@@ -178,10 +178,11 @@ h2 {
 
 .skill-bar {
     height: 10px;
-    background-color: #e0e0e0;
+    background-color: #1e5c79;
     border-radius: 5px;
     margin-bottom: 1rem;
     position: relative;
+
 }
 
 .skill-bar::before {
