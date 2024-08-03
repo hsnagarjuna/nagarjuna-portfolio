@@ -1,101 +1,134 @@
-particlesJS('particles-js', {
-    particles: {
-        number: {
-            value: 80,
-            density: {
-                enable: true,
-                value_area: 800
+particlesJS("particles-js", {
+    "particles": {
+        "number": {
+            "value": 80,
+            "density": {
+                "enable": true,
+                "value_area": 800
             }
         },
-        color: {
-            value: '#0077b5'
+        "color": {
+            "value": "#ffffff"
         },
-        shape: {
-            type: 'circle'
+        "shape": {
+            "type": "circle",
+            "stroke": {
+                "width": 0,
+                "color": "#000000"
+            },
+            "polygon": {
+                "nb_sides": 5
+            }
         },
-        opacity: {
-            value: 0.5,
-            random: false
+        "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+            }
         },
-        size: {
-            value: 3,
-            random: true
+        "size": {
+            "value": 5,
+            "random": true,
+            "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+            }
         },
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: '#0077b5',
-            opacity: 0.4,
-            width: 1
+        "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
         },
-        move: {
-            enable: true,
-            speed: 6,
-            direction: 'none',
-            random: false,
-            straight: false,
-            out_mode: 'out',
-            bounce: false
+        "move": {
+            "enable": true,
+            "speed": 6,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+            }
         }
     },
-    interactivity: {
-        detect_on: 'canvas',
-        events: {
-            onhover: {
-                enable: true,
-                mode: 'repulse'
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+            "onhover": {
+                "enable": true,
+                "mode": "repulse"
             },
-            onclick: {
-                enable: true,
-                mode: 'push'
+            "onclick": {
+                "enable": true,
+                "mode": "push"
             },
-            resize: true
+            "resize": true
         },
-        modes: {
-            grab: {
-                distance: 400,
-                line_linked: {
-                    opacity: 1
+        "modes": {
+            "grab": {
+                "distance": 400,
+                "line_linked": {
+                    "opacity": 1
                 }
             },
-            bubble: {
-                distance: 400,
-                size: 40,
-                duration: 2,
-                opacity: 8,
-                speed: 3
+            "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
             },
-            repulse: {
-                distance: 200,
-                duration: 0.4
+            "repulse": {
+                "distance": 200,
+                "duration": 0.4
             },
-            push: {
-                particles_nb: 4
+            "push": {
+                "particles_nb": 4
             },
-            remove: {
-                particles_nb: 2
+            "remove": {
+                "particles_nb": 2
             }
         }
     },
-    retina_detect: true
+    "retina_detect": true
 });
+
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    body.classList.add(savedTheme);
-    if (savedTheme === 'dark-theme') {
-        themeToggle.checked = true;
-    }
-}
-
 themeToggle.addEventListener('change', () => {
-    if (themeToggle.checked) {
-        body.classList.add('dark-theme');
-        localStorage.setItem('theme', 'dark-theme');
-    } else {
-        body.classList.remove('dark-theme');
-        localStorage.setItem('theme', 'light-theme');
-    }
+    body.classList.toggle('dark-theme');
+});
+// Add this to your existing DOMContentLoaded event listener
+const skillItems = document.querySelectorAll('.skill-item');
+
+const observerOptions = {
+    threshold: 0.5
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+skillItems.forEach(item => {
+    item.style.opacity = 0;
+    item.style.transform = 'translateY(20px)';
+    observer.observe(item);
 });
